@@ -1,0 +1,3 @@
+[hosts]
+host2 ansible_user=tae
+host3 ansible_user=tae
