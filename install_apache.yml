@@ -1,0 +1,25 @@
+---
+
+- name: Install and configure Apache
+  hosts: hosts
+  vars_files:
+    - my_secrets.yml 
+  become: yes
+  tasks:
+    - name: Update package lists
+      apt:
+        update_cache: yes
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+    - name: Start Apache
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+    - name: Configure Apache to listen on port 8081
+      lineinfile:
+        path: /etc/apache2/ports.conf
+        regexp: '^Listen 80$'
+        line: 'Listen 8081'
